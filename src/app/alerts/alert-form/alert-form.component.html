@@ -1,0 +1,20 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+        <label for="direction" class="block mb-2">Direction</label>
+        <select id="direction" [(ngModel)]="direction" name="direction" required
+            class="w-full rounded border border-gray-600 bg-gray-900 p-2">
+            <option value="up">Up</option>
+            <option value="down">Down</option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label for="percentage" class="block mb-2">Percentage</label>
+        <input id="percentage" type="number" [(ngModel)]="percentage" name="percentage" min="0" required
+            placeholder="Enter percentage" class="w-full rounded border border-gray-600 bg-gray-900 p-2 text-white" />
+    </div>
+
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 rounded px-4 py-2 text-white">
+        Submit
+    </button>
+</form>
