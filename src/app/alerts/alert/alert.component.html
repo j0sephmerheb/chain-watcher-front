@@ -1,0 +1,37 @@
+<div class="flex items-center justify-between gap-1">
+    <div>
+        <div class="mb-1 flex items-center gap-1">
+            @if(alert.direction === 'down') {
+            <span class="material-icons text-red-500">
+                arrow_downward
+            </span>
+            }
+            @else if(alert.direction === 'up') {
+            <span class="material-icons text-green-500">
+                arrow_upward
+            </span>
+            }
+            <div>{{ alert.percentage }}%</div>
+            <strong>{{ alert.coin }}</strong>
+        </div>
+
+        <div class="text-xs text-gray-500">{{ alert.createdAt | date: 'dd/MM/yyyy hh:mma' | lowercase }}</div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+        <button type="button" role="switch" [attr.aria-checked]="alert.active"
+            [attr.data-state]="alert.active ? 'checked' : 'unchecked'" (click)="toggleCoin()" class="peer inline-flex h-6 w-11 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors
+               data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300">
+            <span [attr.data-state]="alert.active ? 'checked' : 'unchecked'" class="block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform
+                 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0">
+            </span>
+        </button>
+
+
+        <button class="text-gray-400 hover:text-red-400" (click)="deleteAlert()">
+            <span class="material-icons block">
+                delete_forever
+            </span>
+        </button>
+    </div>
+</div>
