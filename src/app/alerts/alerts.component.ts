@@ -1,3 +1,4 @@
+// alerts.component.ts
 import { Component } from '@angular/core';
 import { AlertListComponent } from './alert-list/alert-list.component';
 import { AlertFormComponent } from './alert-form/alert-form.component';
