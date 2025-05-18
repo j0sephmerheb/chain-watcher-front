@@ -26,6 +26,6 @@
   </div>
 
   <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
-    <app-alert-list [alerts]="alerts" (alertsLoaded)="onAlertsLoaded($event)"></app-alert-list>
+    <app-alert-list [alerts]="alerts" [triggeredAlerts]="triggeredAlerts" (alertsLoaded)="onAlertsLoaded($event)"></app-alert-list>
   </div>
 </div>

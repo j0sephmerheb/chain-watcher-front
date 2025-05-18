@@ -1,30 +1,40 @@
 // alerts.component.ts
-import { Component, inject } from '@angular/core';
-import { AlertListComponent } from './alert-list/alert-list.component';
-import { AlertFormComponent } from './alert-form/alert-form.component';
-import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { AlertsService } from '../services/alerts.service';
-import { PriceChartComponent } from './price-chart/price-chart.component';
-import { PricesService } from '../services/prices.service';
-
+import { Component, inject } from "@angular/core";
+import { AlertListComponent } from "./alert-list/alert-list.component";
+import { AlertFormComponent } from "./alert-form/alert-form.component";
+import { AlertsService } from "../services/alerts.service";
+import { PriceChartComponent } from "./price-chart/price-chart.component";
+import { PricesService } from "../services/prices.service";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-alerts',
+  selector: "app-alerts",
   standalone: true,
-  imports: [AlertListComponent, AlertFormComponent, PriceChartComponent],
-  templateUrl: './alerts.component.html',
+  imports: [
+    AlertListComponent,
+    AlertFormComponent,
+    PriceChartComponent,
+    MatSnackBarModule,
+  ],
+  templateUrl: "./alerts.component.html",
 })
 export class AlertsComponent {
   alerts: any[] = [];
-  selectedCoin = 'bitcoin'; // default
+  triggeredAlerts: any[] = [];
+  selectedCoin = "bitcoin"; // default
   chartData: any = null;
+  private refreshIntervalId: any;
 
   private alertsService = inject(AlertsService);
   private pricesService = inject(PricesService);
+  private snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     this.loadDataForCoin(this.selectedCoin);
+
+    this.refreshIntervalId = setInterval(() => {
+      this.loadDataForCoin(this.selectedCoin);
+    }, 300000); // 5 minutes
   }
 
   onAlertCreated(newAlert: any) {
@@ -42,21 +52,33 @@ export class AlertsComponent {
     this.loadDataForCoin(coin);
   }
 
-  loadAlertsForCoin(coin: string) {
-    this.alertsService.getAlertsByCoin(coin).subscribe((data: any[]) => {
-      this.alerts = data;
-    });
-  }
-
   loadDataForCoin(coin: string) {
-    this.loadAlertsForCoin(coin);
-    this.loadChartForCoin(coin);
-  }
-
-  loadChartForCoin(coin: string) {
     this.pricesService.getPriceData(coin).subscribe((data: any) => {
       this.chartData = data;
+
+      // Update alerts with backend response
+      this.alerts = data.alertResult?.allAlerts || this.alerts;
+
+      // If triggeredAlerts exist, update matching alerts
+      const triggered = data.alertResult?.triggeredAlerts || [];
+      for (const trig of triggered) {
+        const found = this.alerts.find((a) => a.id === trig.id);
+        if (found) {
+          found.active = trig.active;
+        }
+      }
+
+      if (triggered.length) {
+        this.snackBar.open("Alerts triggered!", "Close", {
+          duration: 3000,
+          verticalPosition: "top",
+          horizontalPosition: "center",
+        });
+      }
     });
   }
-}
 
+  ngOnDestroy() {
+    clearInterval(this.refreshIntervalId);
+  }
+}

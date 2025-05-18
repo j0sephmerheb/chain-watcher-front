@@ -13,8 +13,20 @@ import { AlertComponent } from "../alert/alert.component";
 export class AlertListComponent {
   @Input() alerts: any[] = [];
   @Output() alertsLoaded = new EventEmitter<any[]>();
+  @Input() triggeredAlerts: any[] = [];
 
   onAlertDeleted(alertId: number) {
     this.alerts = this.alerts.filter(alert => alert.id !== alertId);
+  }
+
+  ngOnChanges() {
+    if (this.triggeredAlerts?.length) {
+      for (const triggered of this.triggeredAlerts) {
+        const alert = this.alerts.find(a => a.id === triggered.id);
+        if (alert) {
+          alert.active = triggered.active;
+        }
+      }
+    }
   }
 }
