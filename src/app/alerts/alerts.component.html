@@ -1,18 +1,31 @@
 <div class="mb-4">
-    <select id="coin" [value]="selectedCoin" (change)="onCoinChange($event)"
-      class="bg-gray-900 text-white border border-gray-800 rounded rounded-lg p-2 w-full">
-      <option value="bitcoin">BTC</option>
-      <option value="ethereum">ETH</option>
-      <option value="binancecoin">BNB</option>
-    </select>
-  </div>
+  <select id="coin" [value]="selectedCoin" (change)="onCoinChange($event)"
+    class="bg-gray-900 text-white border border-gray-800 rounded-lg p-2 w-full">
+    <option value="bitcoin">BTC</option>
+    <option value="ethereum">ETH</option>
+    <option value="binancecoin">BNB</option>
+  </select>
+</div>
+
+<div class="mb-4 rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
+  @if (chartData) {
+    <app-price-chart [prices]="chartData.prices" [first]="chartData.first" [last]="chartData.last"
+      [percentage]="chartData.percentage" [direction]="chartData.direction" [coin]="selectedCoin">
+    </app-price-chart>
+  }
+  @else {
+    <div class="flex items-center justify-center h-64">
+      <p class="text-gray-500">Loading chart data...</p>
+    </div>
+  }
+</div>
 
 <div class="grid gap-6 md:grid-cols-2">
-    <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
-        <app-alert-form (alertCreated)="onAlertCreated($event)"></app-alert-form>
-    </div>
+  <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
+    <app-alert-form (alertCreated)="onAlertCreated($event)"></app-alert-form>
+  </div>
 
-    <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
-        <app-alert-list [alerts]="alerts" (alertsLoaded)="onAlertsLoaded($event)"></app-alert-list>
-    </div>
+  <div class="rounded-lg border text-card-foreground shadow-sm p-6 bg-gray-900 border-gray-800">
+    <app-alert-list [alerts]="alerts" (alertsLoaded)="onAlertsLoaded($event)"></app-alert-list>
+  </div>
 </div>

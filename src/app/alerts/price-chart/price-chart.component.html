@@ -1,0 +1,38 @@
+<div class="mb-4 flex items-center gap-1  justify-between">
+    <div class="flex items-center gap-4  text-white">
+        <div class="text-2xl font-bold">
+            {{ first }}
+        </div>
+        <div>/</div>
+        <div class="text-xl text-gray-400 font-medium">
+            {{ last }}
+        </div>
+    </div>
+
+
+    <div class="flex items-center" [ngClass]="{
+        'text-red-500': direction === 'down',
+        'text-green-500': direction === 'up'
+    }">
+        {{ percentage }}%
+
+        @if(direction === 'down') {
+        <span class="material-icons">
+            arrow_downward
+        </span>
+        }
+        @else if(direction === 'up') {
+        <span class="material-icons">
+            arrow_upward
+        </span>
+        }
+    </div>
+</div>
+
+<div class="h-64">
+    <ngx-charts-line-chart [results]="chartSeries" [customColors]="customColors" [xAxis]="true" [yAxis]="true"
+        [legend]="false" [showXAxisLabel]="false" [showYAxisLabel]="false" 
+        [autoScale]="true" [animations]="true" [roundDomains]="true" [xAxisTickFormatting]="formatXAxisTick">
+        >
+    </ngx-charts-line-chart>
+</div>
