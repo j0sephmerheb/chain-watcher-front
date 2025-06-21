@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AlertsService {
   private http = inject(HttpClient);
   private baseUrl = `${environment.apiUrl}/alerts`;
-  private selectedCoinSubject = new BehaviorSubject<string>('bitcoin');
+  private selectedCoinSubject = new BehaviorSubject<string>('ethereum');
   selectedCoin$ = this.selectedCoinSubject.asObservable();
   
   setSelectedCoin(coin: string) {

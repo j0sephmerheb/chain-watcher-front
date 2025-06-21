@@ -21,7 +21,7 @@ import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 export class AlertsComponent {
   alerts: any[] = [];
   triggeredAlerts: any[] = [];
-  selectedCoin = "bitcoin"; // default
+  selectedCoin = "ethereum"; // default
   chartData: any = null;
   private refreshIntervalId: any;
 
