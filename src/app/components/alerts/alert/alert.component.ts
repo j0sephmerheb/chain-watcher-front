@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlertsService } from '../../services/alerts.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-alert',
@@ -15,12 +15,21 @@ export class AlertComponent {
 
   private alertsService = inject(AlertsService);
 
-  toggleCoin() {
+
+  /**
+   * toggleAlert
+   * Toggles the active state of the alert and updates it in the service.
+   */
+  toggleAlert() {
     this.alertsService.toggleAlert(this.alert.id).subscribe(() => {
       this.alert.active = !this.alert.active;
     });
   }
 
+  /**
+   * deleteAlert
+   * Deletes the alert and emits the alert ID to the parent component.
+   */
   deleteAlert() {
     this.alertsService.deleteAlert(this.alert.id).subscribe(() => {
       this.alertDeleted.emit(this.alert.id);

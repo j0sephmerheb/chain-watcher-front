@@ -1,8 +1,7 @@
-// alert-form.component.ts
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlertsService } from '../../services/alerts.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-alert-form',

@@ -1,0 +1,5 @@
+// Used ng-deep temporarily to apply styles to ngx-charts
+// This should be removed in the future because it will be deprecated 
+::ng-deep .ngx-charts text {
+  fill: white !important;
+}

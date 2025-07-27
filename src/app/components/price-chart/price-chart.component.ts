@@ -19,6 +19,9 @@ export class PriceChartComponent implements OnChanges {
   chartSeries: any[] = [];
   tickIndex = 0;
 
+  /**
+   * Custom colors for the chart
+   */
   customColors = [
     {
       name: 'Price',
@@ -26,12 +29,20 @@ export class PriceChartComponent implements OnChanges {
     }
   ];
 
+  /**
+   * Formats the X-axis tick labels
+   * @param val - The value to format
+   * @returns
+   */
   formatXAxisTick = (val: string): string => {
     const result = this.tickIndex % 6 === 0 ? val : '';
     this.tickIndex++;
     return result;
   };
 
+  /**
+   *  Detects changes in the prices input properties and updates the chart data accordingly
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['prices'] && this.prices?.length) {
       this.chartSeries = [

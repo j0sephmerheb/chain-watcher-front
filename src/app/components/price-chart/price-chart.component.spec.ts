@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PriceChartComponent } from './price-chart.component';
 
-import { AlertsComponent } from './alerts.component';
-
-describe('AlertsComponent', () => {
-  let component: AlertsComponent;
-  let fixture: ComponentFixture<AlertsComponent>;
+describe('PriceChartComponent', () => {
+  let component: PriceChartComponent;
+  let fixture: ComponentFixture<PriceChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlertsComponent]
+      imports: [PriceChartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AlertsComponent);
+    fixture = TestBed.createComponent(PriceChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
