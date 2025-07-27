@@ -1,10 +1,9 @@
-// alerts.component.ts
 import { Component, inject } from "@angular/core";
 import { AlertListComponent } from "./alert-list/alert-list.component";
 import { AlertFormComponent } from "./alert-form/alert-form.component";
-import { AlertsService } from "../services/alerts.service";
-import { PriceChartComponent } from "./price-chart/price-chart.component";
-import { PricesService } from "../services/prices.service";
+import { PriceChartComponent } from "../price-chart/price-chart.component";
+import { AlertsService } from "../../services/alerts.service";
+import { PricesService } from "../../services/prices.service";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 
 @Component({
@@ -21,10 +20,9 @@ import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 export class AlertsComponent {
   alerts: any[] = [];
   triggeredAlerts: any[] = [];
-  selectedCoin = "ethereum"; // default
+  selectedCoin = "ethereum"; // default coin
   chartData: any = null;
   private refreshIntervalId: any;
-
   private alertsService = inject(AlertsService);
   private pricesService = inject(PricesService);
   private snackBar = inject(MatSnackBar);
@@ -37,14 +35,27 @@ export class AlertsComponent {
     }, 300000); // 5 minutes
   }
 
+
+  /**
+   * onAlertCreated
+   */
   onAlertCreated(newAlert: any) {
     this.alerts = [newAlert, ...this.alerts];
   }
 
+
+  /**
+   * onAlertDeleted
+   */
   onAlertsLoaded(allAlerts: any[]) {
     this.alerts = allAlerts;
   }
 
+
+  /**
+   * onCoinChange
+   * @param event - The change event from the coin selection dropdown
+   */
   onCoinChange(event: Event) {
     const coin = (event.target as HTMLSelectElement).value;
     this.selectedCoin = coin;
@@ -52,6 +63,12 @@ export class AlertsComponent {
     this.loadDataForCoin(coin);
   }
 
+
+  /**
+   * loadDataForCoin
+   * Fetches price data and updates the chart and alerts
+   * @param coin - The selected coin to fetch data for
+   */
   loadDataForCoin(coin: string) {
     this.pricesService.getPriceData(coin).subscribe((data: any) => {
       this.chartData = data;

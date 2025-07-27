@@ -1,7 +1,5 @@
-// alert-list.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { AlertComponent } from "../alert/alert.component";
 
 @Component({
@@ -15,10 +13,17 @@ export class AlertListComponent {
   @Output() alertsLoaded = new EventEmitter<any[]>();
   @Input() triggeredAlerts: any[] = [];
 
+  /**
+   * onAlertDeleted
+   */
   onAlertDeleted(alertId: number) {
     this.alerts = this.alerts.filter(alert => alert.id !== alertId);
   }
 
+
+  /**
+   * Check if there are any triggered alerts and updates the corresponding alerts in the list.
+   */
   ngOnChanges() {
     if (this.triggeredAlerts?.length) {
       for (const triggered of this.triggeredAlerts) {

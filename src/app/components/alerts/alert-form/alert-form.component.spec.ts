@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlertFormComponent } from './alert-form.component';
 
-import { AlertComponent } from './alert.component';
-
-describe('AlertComponent', () => {
-  let component: AlertComponent;
-  let fixture: ComponentFixture<AlertComponent>;
+describe('AlertFormComponent', () => {
+  let component: AlertFormComponent;
+  let fixture: ComponentFixture<AlertFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlertComponent]
+      imports: [AlertFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AlertComponent);
+    fixture = TestBed.createComponent(AlertFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
